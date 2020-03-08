@@ -1,0 +1,29 @@
+// Snippets for c# netdaemon stuff
+{
+  "NewApp": {
+    "scope": "csharp",
+    "prefix": "newapp",
+    "body": [
+      "using System;",
+      "using System.Threading.Tasks;",
+      "using JoySoftware.HomeAssistant.NetDaemon.Common;",
+      "",
+      "/// <summary>",
+      "///     App docs",
+      "/// </summary>",
+      "public class $1 : NetDaemonApp",
+      "{",
+      "   public override async Task InitializeAsync()",
+      "   {",
+      "       // Add automation setup here",
+      "   }",
+      "}"
+    ],
+    "description": "Daemon app template"
+  },
+  "Light-TurnOn": {
+    "scope": "csharp",
+    "prefix": "lighton",
+    "body": ["await Light(\"light.$1\")", "   .TurnOn().ExecuteAsync();"]
+  }
+}
