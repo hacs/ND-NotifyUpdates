@@ -1,2 +1,4 @@
 obj
 bin
+daemon_config.json
+_daemon_config.json

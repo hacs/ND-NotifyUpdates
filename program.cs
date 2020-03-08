@@ -21,7 +21,7 @@ namespace cs
                     logging.AddConsole(options => options.IncludeScopes = false);
                     logging.AddDebug();
                     logging.AddFilter("Microsoft", LogLevel.Error);
-                    logging.SetMinimumLevel(LogLevel.Information);
+                    logging.SetMinimumLevel(LogLevel.Debug);
                 });
     }
 }
