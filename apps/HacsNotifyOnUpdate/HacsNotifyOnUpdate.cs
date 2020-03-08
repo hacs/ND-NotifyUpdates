@@ -1,16 +1,31 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using JoySoftware.HomeAssistant.NetDaemon.Common;
-public class HacsNotifyOnUpdate : NetDaemonApp
+
+namespace hacs 
 {
-    public async override Task InitializeAsync() => Entity("sensor.hacs")
-            .WhenStateChange((n, o) =>
-                o?.State != n?.State && n?.State > 0)
-                    .Call(async (entityId, newState, oldState) =>
-                    {
-                        await CallService("persistent_notification", "create", new
+    public class NotifyOnUpdate : NetDaemonApp
+    {
+        public async override Task InitializeAsync() => Entity("sensor.hacs")
+                .WhenStateChange((n, o) =>
+                    o?.State != n?.State && n?.State > 0)
+                        .Call(async (entityId, newState, oldState) =>
                         {
-                            title = "Updates pending in HACS",
-                            message = "There are updates pending in [HACS](/hacs)"
-                        }, true);
-                    }).Execute();
+                            var serviceDataTitle = "Updates pending in HACS";
+                            var serviceDataMessage = "There are updates pending in [HACS](/hacs)\n\n";
+
+
+                            List<object> repositories = newState?.Attribute?.repositories || new List<object>();
+                            foreach (IDictionary<string, object?> item in repositories)
+                            {
+                                serviceDataMessage += $"- {item?["display_name"].ToString()}\n";
+                            }
+
+                            await CallService("persistent_notification", "create", new
+                            {
+                                title = serviceDataTitle,
+                                message = serviceDataMessage
+                            }, true);
+                        }).Execute();
+    }
 }
