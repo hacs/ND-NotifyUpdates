@@ -6,4 +6,8 @@ Get a notification when there is an update to a repository in HACS.
 
 ## Install
 
-With HACS.
+With HACS (0.23+).
+
+## Configuration
+
+`null`
