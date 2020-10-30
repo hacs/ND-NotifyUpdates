@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JoySoftware.HomeAssistant.NetDaemon.Common;
+using NetDaemon.Common;
 
 namespace hacs 
 {
@@ -18,7 +18,7 @@ namespace hacs
                             List<object> repositories = newState?.Attribute?.repositories || new List<object>();
                             foreach (IDictionary<string, object?> item in repositories)
                             {
-                                serviceDataMessage += $"- {item?["display_name"].ToString()}\n";
+                                serviceDataMessage += $"- {item?["display_name"]?.ToString()}\n";
                             }
 
                             await CallService("persistent_notification", "create", new
